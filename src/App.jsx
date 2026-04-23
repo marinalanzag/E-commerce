@@ -181,17 +181,9 @@ Responda SOMENTE em JSON válido, sem markdown:
   "ressalva": "sempre incluir: análise orientativa — confirmar com contador ou SEFAZ antes de emitir NF-e"
 }`;
 
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-  if (!apiKey) throw new Error("Chave VITE_ANTHROPIC_API_KEY não configurada. Veja o arquivo .env.example.");
-
-  const resp = await fetch("https://api.anthropic.com/v1/messages", {
+  const resp = await fetch("/api/anthropic", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-      "anthropic-dangerous-direct-browser-calls": "true",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       model: "claude-sonnet-4-20250514",
       max_tokens: 1200,
